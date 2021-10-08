@@ -1,0 +1,59 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Lineare Abschreibung</title>
+	<script>
+		function fAbschreibung() {
+			var vJahr;
+			var vNutzungsdauer;
+			var vRestwert;
+			var vAbschreibung;
+			var vWert;
+			var vAusgabe = "";
+			
+			vWert = parseFloat(document.getElementById("idAnschaffungswert").value);
+			vNutzungsdauer= document.getElementById("idNutzungsdauer").value;
+			vAbschreibung = parseFloat(vAbschreibung);
+			
+			vAusgabe = vAusgabe + "<table border=1>";
+			vAusgabe = vAusgabe + "<tr><th>Nutzungsjahr</th>";
+			vAusgabe = vAusgabe + "<th>Abschreibung</th>";
+			vAusgabe = vAusgabe + "<th>Restwert</th></tr>";
+			
+			vAbschreibung = vWert / vNutzungsdauer;
+			vJahr = vNutzungsdauer;
+			
+			while (vJahr >= 1) {
+					vAusgabe = vAusgabe + "<tr style=text-align:right><td>" + vJahr + "</td>";
+					vAusgabe = vAusgabe + "<td>"+ vAbschreibung.toFixed(2) + " €</td>";
+				
+				if (vJahr == 6) {
+					vRestwert = 1;
+					vAusgabe = vAusgabe + "<td style=color:green>" + vRestwert.toFixed(2) + " €</td></tr>";
+				} else {
+					vRestwert = vWert - (vJahr*vAbschreibung);
+					vAusgabe = vAusgabe + "<td  style=color:red>" + vRestwert.toFixed(2) + " €</td></tr>";
+				}
+				
+				vJahr--;
+			}
+			
+			vAusgabe = vAusgabe + "</table>";
+			vAusgabe = vAusgabe + "<br><br>Anschaffungswert: " + vWert.toFixed(2) + " €";
+			vAusgabe = vAusgabe + "<br>Abschreibungswert: " + vAbschreibung.toFixed(2) + " €";
+			vAusgabe = vAusgabe + "<br>Nutzungsdauer: " + vNutzungsdauer + "Jahre";
+			vAusgabe = vAusgabe + "<br>Die Maschine wird über " + vNutzungsdauer + " Jahre abgeschreiben.";
+			
+			document.getElementById("idAusgabe").innerHTML = vAusgabe;
+		}
+	</script>
+</head>
+<body>
+	<h1>Lineare Abschreibung</h1>
+	Anschaffungswert: <input id="idAnschaffungswert" type="text" value="150000"> in Euro <br><br>
+	Nutzungsdauer: <input id="idNutzungsdauer" type="text" value="6"> in Jahren <br><br>
+	<button onClick="fAbschreibung();">Lineare Abschreibung berechnen!</button><br><br>
+	<div id="idAusgabe"></div>
+	
+</body>
+</html>
